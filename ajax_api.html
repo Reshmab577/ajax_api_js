@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>UserName</td>
+                <td>Email</td>
+                        </tr>
+            
+            <tbody id="result_area">
+                <tr><td>please wait..</td></tr>
+
+            </tbody>
+        </thead>
+        <button id="view_data">Click Me</button>
+    </table>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open("get","https://jsonplaceholder.typicode.com/users");
+     document.getElementById("view_data").addEventListener("click",function(){
+        xhr.send();
+     })
+       
+        xhr.onreadystatechange = function(){
+           
+            if(xhr.readyState==4){
+                if(xhr.status==200){
+                
+                var result_data = JSON.parse(xhr.responseText);
+                console.log(result_data);
+                for(i=0;i<result_data.length;i++){
+                    var current_data=result_data[i];
+                    var html_content= html_content+"<tr><td>"+current_data.id+"</td> <td>"+current_data.name+"</td> <td>"+current_data.username+"</td> <td>"+ current_data.email+"</td> </tr>";
+                     
+                    
+                   
+                }
+                document.getElementById("result_area").innerHTML=html_content;
+                }
+                
+                else{
+                    alert("error")
+                }
+            }
+            
+        }
+
+    </script>
+</body>
+</html>
